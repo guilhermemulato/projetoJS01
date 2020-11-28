@@ -11,23 +11,71 @@ let btn = document.querySelector("#botao");
 // Pegar lista
 let list = document.querySelector("#lista");
 
+// Pegar Card
+let card = document.querySelector(".card");
+
+let tarefas = ["Jogar GTA5", "Estudar Python", "Ficar Definido"];
+
+function renderizarTarefas() {
+  // Limpar lista
+  list.innerHTML = "";
+
+  for (tarefa of tarefas) {
+    // Criar elemente li
+    let liElement = document.createElement("li");
+
+    // Setar atributos a class
+    liElement.setAttribute("class", "list-group-item list-group-item-action");
+
+    //criar elemento de texto
+    textElement = document.createTextNode(tarefa);
+
+    //adicionar texto criado ao elemente criado li
+    liElement.appendChild(textElement);
+
+    //adiconar elemento criado li a lista
+    list.appendChild(liElement);
+  }
+}
+
+renderizarTarefas();
+
 // Funcao do Botao
 btn.onclick = function () {
-  // Criar elemento li
-
-  let liElement = document.createElement("li");
-  liElement.setAttribute("class", "list-group-item list-group-item-action");
+  let textTarefa = inp.value;
 
   if (inp.value !== "") {
-    textElement = document.createTextNode(inp.value);
+    // Adicionat a tarefa no array
+    tarefas.push(textTarefa);
+    // Limpar input
+    inp.value = "";
+
+    renderizarTarefas();
+    removerSpans();
   } else {
-    alert("Tarefa precisa ser preenchida...");
-    throw "error";
+    removerSpans();
+
+    card = document.querySelector(".card");
+
+    let span = document.createElement("span");
+    span.setAttribute("class", "alert alert-warning");
+
+    let msg = document.createTextNode("Você precisa informar a tarefa!");
+    span.appendChild(msg);
+
+    card.appendChild(span);
   }
-
-  liElement.appendChild(textElement);
-
-  list.appendChild(liElement);
-
-  inp.value = "";
 };
+
+function removerSpans() {
+  let spans = document.querySelectorAll("span");
+
+  card = document.querySelector(".card");
+
+  for (s of spans) {
+    card.removeChild(s);
+  }
+  //   for (let i = 0; i < spans.length; i++) {
+  //     card.removeChild(spans[i]);
+  //   }
+}
