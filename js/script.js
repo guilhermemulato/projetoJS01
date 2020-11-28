@@ -27,6 +27,9 @@ function renderizarTarefas() {
     // Setar atributos a class
     liElement.setAttribute("class", "list-group-item list-group-item-action");
 
+    liElement.onclick = function () {
+      removerTarefa(this);
+    };
     //criar elemento de texto
     textElement = document.createTextNode(tarefa);
 
@@ -78,4 +81,11 @@ function removerSpans() {
   //   for (let i = 0; i < spans.length; i++) {
   //     card.removeChild(spans[i]);
   //   }
+}
+
+function removerTarefa(tarefa) {
+  // Remove a tarefa do array
+  tarefas.splice(tarefas.indexOf(tarefa.textContent), 1);
+
+  renderizarTarefas();
 }
