@@ -14,7 +14,7 @@ let list = document.querySelector("#lista");
 // Pegar Card
 let card = document.querySelector(".card");
 
-let tarefas = ["Jogar GTA5", "Estudar Python", "Ficar Definido"];
+let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
 function renderizarTarefas() {
   // Limpar lista
@@ -55,6 +55,8 @@ btn.onclick = function () {
 
     renderizarTarefas();
     removerSpans();
+
+    salvarDadosNoStorage();
   } else {
     removerSpans();
 
@@ -88,4 +90,10 @@ function removerTarefa(tarefa) {
   tarefas.splice(tarefas.indexOf(tarefa.textContent), 1);
 
   renderizarTarefas();
+
+  salvarDadosNoStorage();
+}
+
+function salvarDadosNoStorage() {
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
 }
